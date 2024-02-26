@@ -36,13 +36,12 @@ else ()
   set(CUDA_NVCC_FLAGS ${CUDA_NVCC_FLAGS} -std=c++14 -Wno-deprecated-gpu-targets)
 endif ()
 
-find_library(NVINFER NAMES nvinfer)
-find_library(NVPARSERS NAMES nvparsers)
-find_library(NVONNXPARSERS NAMES nvonnxparser)
+# find_library(NVINFER NAMES nvinfer)
+# find_library(NVPARSERS NAMES nvparsers)
+# find_library(NVONNXPARSERS NAMES nvonnxparser)
 
 list(APPEND LINK_LIBRARY
             ${CUDA_cusparse_LIBRARY}
-            ${NVINFER}
             ${NVONNXPARSERS}
             ${CUDA_LIBRARIES}
             ${CUDA_CUBLAS_LIBRARIES}
@@ -51,6 +50,10 @@ list(APPEND LINK_LIBRARY
 
             yaml-cpp
             )
+
+# 配置tensorrt地址
+include_directories("/data/chenghao/TensorRT-8.2.0.6/include/")
+link_directories("/data/chenghao/TensorRT-8.2.0.6/lib/")
 
 # Correct error for GCC 5 and CUDA 7.5
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DYAML_BUILD_SHARED_LIBS=ON -D_MWAITXINTRIN_H_INCLUDED -D_FORCE_INLINES ")
@@ -69,7 +72,6 @@ set(COMMON_INCLUDES ${CMAKE_CURRENT_BINARY_DIR})
 set(PROJECT_LIB_NAME ${PROJECT_NAME})
 include_directories(${COMMON_INCLUDES})
 add_subdirectory(${PROJECT_SOURCE_DIR}/pointpillars)
-
 
 ############################################################
 # Create an executable

@@ -7,7 +7,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 file(GLOB SRC *.cc *.cu)
 cuda_add_library(${PROJECT_LIB_NAME} ${SRC} OPTIONS -DYAML_BUILD_SHARED_LIBS=ON ) #OPTIONS -shared -fPIC
 # CUDA_ADD_EXECUTABLE(${PROJECT_LIB_NAME} )
-target_link_libraries(${PROJECT_LIB_NAME} ${LINK_LIBRARY} OpenMP::OpenMP_CXX)
+target_link_libraries(${PROJECT_LIB_NAME} ${LINK_LIBRARY} OpenMP::OpenMP_CXX nvonnxparser)
 
 # Export the package for use from the build tree
 # export(TARGETS ${PROJECT_NAME} NAMESPACE XComp:: FILE cmake/${PROJECT_NAME}Targets.cmake)
